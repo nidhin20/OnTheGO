@@ -9,13 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public abstract class Users {
+//@Table(name="User")
+public  class User {
 	   @Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="User_Id")
-		private String id;
+		private int id;
 	
     	@Column(name="User_Nm")
 	    private String name;
@@ -27,15 +29,21 @@ public abstract class Users {
 	    private String phoneno;
     	
     	@Column(name="DOB")
-    	private Date DOB;
+    	private Date dob;
+    	
+    	@Column(name="password")
+    	private String password;
+    	
+
+		
 
 
-		public String getId() {
+		public int getId() {
 			return id;
 		}
 
 
-		public void setId(String id) {
+		public void setId(int id) {
 			this.id = id;
 		}
 
@@ -69,16 +77,27 @@ public abstract class Users {
 			this.phoneno = phoneno;
 		}
 
-
-		public Date getDOB() {
-			return DOB;
+    	
+		public Date getDob() {
+			return dob;
 		}
 
 
-		public void setDOB(Date dOB) {
-			DOB = dOB;
+		public void setDob(Date dob) {
+			this.dob = dob;
 		}
-    	
-    	
+
+
+		public String getPassword() {
+			return password;
+		}
+
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+
+		
 		
 }
