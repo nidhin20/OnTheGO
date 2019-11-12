@@ -34,7 +34,11 @@ public class UserController {
 	@RequestMapping(path="/signup", method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody @Valid UserSignUpDto userSignUpDto) {
 		 UserDto userDto = userService.addUser(userSignUpDto);
-         return ResponseEntity.ok().body(userDto);
+		 if(userDto==null)
+		 {
+			 return ResponseEntity.ok().body("Invalid Email/User already exist");
+		 }
+         return ResponseEntity.ok().body("Successfully Registered");
 		
 	}
 }
