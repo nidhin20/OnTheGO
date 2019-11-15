@@ -4,21 +4,16 @@ package com.project.onthego.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import com.project.onthego.model.UserMembership;
-import com.project.onthego.model.Users;
 import com.project.onthego.repository.UserMembershipRepository;
-=======
-import com.project.onthego.dto.UserDto;
-import com.project.onthego.dto.UserSignUpDto;
+
+import com.project.onthego.DTO.UserDto;
+import com.project.onthego.DTO.UserSignUpDto;
 import com.project.onthego.model.User;
->>>>>>> bd895d9b04726694c422f4955c7769e1a60e15a4
 import com.project.onthego.repository.UserRepository;
 
 
@@ -26,17 +21,16 @@ import com.project.onthego.repository.UserRepository;
 @Service
 public class UserService {
 	@Autowired
-<<<<<<< HEAD
-    private UserRepository userrepository;
+	private UserRepository userRepository;
 	@Autowired
     private UserMembershipRepository usermembershiprepository;	
-	public List<Users> getAll(){
-		return userrepository.findAll();
+	public List<User> getAll(){
+		return userRepository.findAll();
 	}
 	public Optional<UserMembership> getAllLinkedcards(int userid){
 		return usermembershiprepository.findById(userid);
-=======
-    private UserRepository userRepository;
+	}
+    
 	
 	 /*@Autowired
 	    private PasswordEncoder passwordEncoder;*/
@@ -64,7 +58,6 @@ public class UserService {
        
 
         return userDto;
->>>>>>> bd895d9b04726694c422f4955c7769e1a60e15a4
 	}
 		
 		
