@@ -5,7 +5,7 @@
  * @author Jithu
  *
  */
-package com.project.onthego.dto;
+package com.project.onthego.DTO;
 
 import java.util.Date;
 
