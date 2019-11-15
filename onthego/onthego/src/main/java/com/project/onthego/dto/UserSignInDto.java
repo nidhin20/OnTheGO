@@ -1,4 +1,4 @@
-package com.project.onthego.dto;
+package com.project.onthego.DTO;
 
 public class UserSignInDto {
 
