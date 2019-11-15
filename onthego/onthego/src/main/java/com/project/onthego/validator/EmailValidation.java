@@ -1,5 +1,5 @@
 
-package com.project.onthego.validation;
+package com.project.onthego.validator;
 
 import javax.validation.Valid;
 
