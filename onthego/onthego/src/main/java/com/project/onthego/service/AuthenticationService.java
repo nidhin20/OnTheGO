@@ -3,10 +3,10 @@ package com.project.onthego.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.onthego.dto.UserDto;
-import com.project.onthego.dto.UserSignInDto;
-import com.project.onthego.dto.UserSignUpDto;
-import com.project.onthego.model.User;
+import com.project.onthego.DTO.UserDto;
+import com.project.onthego.DTO.UserSignInDto;
+import com.project.onthego.DTO.UserSignUpDto;
+
 import com.project.onthego.repository.UserRepository;
 
 @Service
