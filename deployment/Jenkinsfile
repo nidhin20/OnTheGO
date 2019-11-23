@@ -1,0 +1,40 @@
+pipeline {
+   agent any
+
+   tools {
+      // Install the Maven version configured as "M3" and add it to the path.
+      maven "M3"
+   }
+
+stages {
+    stage ('Get code') {
+        steps {
+        git branch: 'master', url:'https://github.com/nidhin20/OnTheGO.git'
+        }
+    }
+    stage ('Build') {
+        steps{
+        sh "mvn -Dmaven.test.failure.ignore=true clean package -f onthego/onthego/pom.xml"
+        }
+    }
+    stage ('Deploy') {
+        steps {
+    sh 'ssh -o StrictHostKeyChecking=no  root@172.31.22.246 rm -rf /var/www/temp_deploy/dist/'
+    sh 'ssh -o StrictHostKeyChecking=no  root@172.31.22.246 mkdir -p /var/www/temp_deploy'
+    sh 'scp -o StrictHostKeyChecking=no  -r onthego/onthego/target/onthego-0.0.1-SNAPSHOT.jar root@172.31.22.246:/var/www/temp_deploy/OntheGo.jar'
+    sh 'ssh -o StrictHostKeyChecking=no  root@172.31.22.246 "rm -rf /root/OntheGo.jar && mv /var/www/temp_deploy/OntheGo.jar /root/OntheGo.jar"'
+        }
+    }
+    stage ('Run') {
+        steps {
+    sh "ssh -f  -o StrictHostKeyChecking=no  root@172.31.22.246 nohup /root/run.sh run"
+        }
+    }
+    stage ('Check') {
+        steps {
+            sh "ssh  -o StrictHostKeyChecking=no  root@172.31.22.246  /root/run.sh check"
+    
+            }
+        }
+    }
+}
