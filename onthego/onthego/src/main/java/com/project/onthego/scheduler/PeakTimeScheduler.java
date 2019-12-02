@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.project.onthego.model.CardHistory;
 import com.project.onthego.model.PeakTime;
 import com.project.onthego.repository.PeakTimeRepository;
 
@@ -37,13 +38,18 @@ public class PeakTimeScheduler {
 		Date date = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
 		String day =simpleDateFormat.format(date);
-		List<Date> peaktime = peakTimeRepository.getbydate(day);
-		ArrayList<Integer> hour = new ArrayList<Integer>();
-		Iterator<Date> itr =peaktime.iterator();
-		
-		while(itr.hasNext())
+		List<CardHistory> peaktime = peakTimeRepository.getbydate(day);
+		List<Object> objectlist=new ArrayList<Object>();
+		for(int i=0;i<peaktime.size();i++)
 		{
-			hour.add(itr.next().getHours());
+			objectlist.add(peaktime.get(i));	
+		}
+		Scheduler schedule=new Scheduler(objectlist);
+		ArrayList<Integer> hour = new ArrayList<Integer>();
+		for(Iterator_pattern itr = schedule.getIterator(); itr.hasNext();)
+		{
+		
+			hour.add(((CardHistory) itr.next()).getCheck_In().getHours());
 			
 		}
 		
