@@ -1,6 +1,9 @@
 package com.project.onthego.DTO;
 
-public class UserSignInDto {
+
+
+public class UserSignInDto  {
+
 
 	private String email;
 	private String password;
@@ -15,5 +18,12 @@ public class UserSignInDto {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public UserSignInDto()
+	{
+	}
+	public UserSignInDto(String username, String password) {
+	this.setEmail(username);
+	this.setPassword(password);
 	}
 }
