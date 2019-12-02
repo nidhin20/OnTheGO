@@ -1,16 +1,8 @@
-package com.project.onthego.model;
+package com.project.onthego.DTO;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Card {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Carddto {
 	private int Card_Id;
 	private String Card_Num;
 	private String Card_Category;
@@ -74,5 +66,4 @@ public class Card {
 	public void setUpdated_Date(Date updated_Date) {
 		Updated_Date = updated_Date;
 	}
-	
 }

@@ -8,43 +8,62 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Card {
+public class UserSubscription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Card_Id;
-	private String Card_Num;
-	private String Card_Category;
-	private float Balance;
-	private boolean Card_Status;
-	public int getCard_Id() {
-		return Card_Id;
+	private int Subid;
+	private int Card_id;
+	private int plan_Id;
+	private float Discount;
+	private Date Subs_Start_Dt;
+	private Date Subs_End_Dt;
+
+	public int getSubid() {
+		return Subid;
 	}
-	public void setCard_Id(int card_Id) {
-		Card_Id = card_Id;
+
+	public void setSubid(int subid) {
+		Subid = subid;
 	}
-	public String getCard_Num() {
-		return Card_Num;
+
+	public int getCard_id() {
+		return Card_id;
 	}
-	public void setCard_Num(String card_Num) {
-		Card_Num = card_Num;
+
+	public void setCard_id(int card_id) {
+		Card_id = card_id;
 	}
-	public String getCard_Category() {
-		return Card_Category;
+
+	public int getPlan_Id() {
+		return plan_Id;
 	}
-	public void setCard_Category(String card_Category) {
-		Card_Category = card_Category;
+
+	public void setPlan_Id(int plan_Id) {
+		this.plan_Id = plan_Id;
 	}
-	public float getBalance() {
-		return Balance;
+
+	public float getDiscount() {
+		return Discount;
 	}
-	public void setBalance(float balance) {
-		Balance = balance;
+
+	public void setDiscount(float discount) {
+		Discount = discount;
 	}
-	public boolean isCard_Status() {
-		return Card_Status;
+
+	public Date getSubs_Start_Dt() {
+		return Subs_Start_Dt;
 	}
-	public void setCard_Status(boolean card_Status) {
-		Card_Status = card_Status;
+
+	public void setSubs_Start_Dt(Date subs_Start_Dt) {
+		Subs_Start_Dt = subs_Start_Dt;
+	}
+
+	public Date getSubs_End_Dt() {
+		return Subs_End_Dt;
+	}
+
+	public void setSubs_End_Dt(Date subs_End_Dt) {
+		Subs_End_Dt = subs_End_Dt;
 	}
 	private int Created_By;
 	private Date Created_Date;
@@ -74,5 +93,4 @@ public class Card {
 	public void setUpdated_Date(Date updated_Date) {
 		Updated_Date = updated_Date;
 	}
-	
 }
