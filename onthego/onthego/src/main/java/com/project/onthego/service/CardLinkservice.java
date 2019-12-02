@@ -2,22 +2,24 @@ package com.project.onthego.service;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 import com.project.onthego.DTO.Carddto;
 import com.project.onthego.model.UserMembership;
 import com.project.onthego.repository.UserMembershipRepository;
-
+@Service
 public class CardLinkservice {
 	private CardService Cardservice;
 	private UserMembershipRepository UserMembershipRepo;
-	private String Cardnum;
-	private int userid;
-	public CardLinkservice(String Cardno,int user,UserMembershipRepository UserMembership) {
-		Cardnum=Cardno;
-		userid=user;
+//	private String Cardnum;
+//	private int userid;
+	public CardLinkservice(CardService card,UserMembershipRepository UserMembership) {
+//		Cardnum=Cardno;
+//		userid=user;
+		Cardservice=card;
 		UserMembershipRepo=UserMembership;
-		
 	}
-	public String Linkcardtouser() {
+	public String Linkcardtouser(String Cardnum,int userid) {
 		Carddto carddetails = Cardservice.GetCarddetailsbycardID(Cardnum);
 		if (carddetails == null) {
 			return "102";
@@ -41,7 +43,7 @@ public class CardLinkservice {
 		}
 
 	}
-	public String DeLinkcardtouser() {
+	public String DeLinkcardtouser(String Cardnum,int userid) {
 		Carddto carddetails = Cardservice.GetCarddetailsbycardID(Cardnum);
 		if (carddetails == null) {
 			return "102";

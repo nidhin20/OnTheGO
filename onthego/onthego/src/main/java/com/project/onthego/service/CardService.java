@@ -37,6 +37,7 @@ public class CardService {
 		Carddto carddto=new Carddto();
 		
 		Card card= cardrepo.findBycardNumber(cardNum);
+		Assert.notNull(card, "There is no card");
 		BeanUtils.copyProperties(card, carddto);
 		return carddto;
 
