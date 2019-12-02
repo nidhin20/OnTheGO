@@ -4,7 +4,7 @@ package com.project.onthego.validator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
+import com.project.onthego.DTO.Carddto;
 import com.project.onthego.model.Card;
 
 @Component
@@ -12,7 +12,7 @@ public class CardValidator {
 	
 	@Value("${onthego.card.Minbalance}")
 	 private float minMinbalance;
-	public String Checkcardforuse(Card card)
+	public String Checkcardforuse(Carddto card,Boolean ischeckin)
 	{
 		if (card == null)
 		{

@@ -11,12 +11,16 @@ public class UserSignInDto  {
 		return email;
 	}
 	public void setEmail(String email) {
+		 if (email == "" || email.isEmpty())
+			 throw new IllegalArgumentException("Email can not be empty");
 		this.email = email;
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
+		 if (password == ""|| password.isEmpty())
+			 throw new IllegalArgumentException("Password can not be empty");
 		this.password = password;
 	}
 	public UserSignInDto()

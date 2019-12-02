@@ -18,5 +18,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
    @Query(value="Select count(1) from User u where u.email=:email",nativeQuery=true)
    int validbyEmail(@Param("email") String email);
    
+   @Query(value="Select * from User u where u.email=:email LIMIT 1",nativeQuery=true)
+   User GetuserbyEmail(@Param("email") String email);
 
 }
