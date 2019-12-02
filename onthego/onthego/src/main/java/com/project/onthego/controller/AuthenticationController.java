@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.onthego.dto.UserDto;
-import com.project.onthego.dto.UserSignInDto;
+import com.project.onthego.DTO.UserDto;
+import com.project.onthego.DTO.UserSignInDto;
 import com.project.onthego.service.AuthenticationService;
 
 
