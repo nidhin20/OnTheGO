@@ -13,8 +13,8 @@ import com.project.onthego.model.User;
 
 public interface PeakTimeRepository extends JpaRepository<PeakTime,Integer> {
 
-	 @Query(value="Select c.Check_In from CardHistory c where c.Day_Of_Week=:day")
-	List<Date> getbydate(@Param("day") String day); 
+	 @Query(value="Select * from CardHistory c where c.Day_Of_Week=:day",nativeQuery=true)
+	List<CardHistory> getbydate(@Param("day") String day); 
 	
 
 }
