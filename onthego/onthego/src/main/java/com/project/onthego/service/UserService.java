@@ -2,32 +2,30 @@
 package com.project.onthego.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
-
+import com.project.onthego.model.UserMembership;
+import com.project.onthego.repository.UserMembershipRepository;
 import com.project.onthego.DTO.UserDto;
 import com.project.onthego.DTO.UserSignUpDto;
 import com.project.onthego.model.User;
 import com.project.onthego.repository.UserRepository;
 import com.project.onthego.validator.EmailValidation;
 
-
-
 @Service
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+    private UserMembershipRepository usermembershiprepository;	
+	public List<User> getAll(){
+		return userRepository.findAll();
+	}
+	public List<UserMembership> getAllLinkedcards(int userid){
+		return usermembershiprepository.findUserMembershipByuserid(userid);
+	}
+    
 
-	
-	 /*@Autowired
-	    private PasswordEncoder passwordEncoder;*/
 	
 	  public List<User> findAll() {
 
@@ -35,6 +33,7 @@ public class UserService {
 
 	        return users;
 	    }
+	  
 
 	public UserDto addUser( UserSignUpDto userSignUpDto) {
 		User user = new User() ;
