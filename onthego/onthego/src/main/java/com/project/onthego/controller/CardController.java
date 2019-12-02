@@ -35,15 +35,14 @@ public class CardController {
 	@Autowired
 	private CardService cardservice;
 	@Autowired
-	private CardLinkservice CardLinkservice;
-	@Autowired
-	UserMembershipRepository UserMembership;
+	private UserMembershipRepository UserMembership;
 
 	@PostMapping("/Linkcard")
 	public ResponseEntity<Object> Linkcard(@RequestBody UserMembershipview Usermembership) {
 		try {
 			//String Issucess = cardservice.Linkcardtouser(Usermembership.getCard_Num(), Usermembership.getUser_Id());
-			Linkcard Card=new Linkcard(Usermembership.getCard_Num(),Usermembership.getUser_Id(),CardLinkservice,UserMembership);
+			CardLinkservice cardlink=new CardLinkservice(cardservice,UserMembership);
+			Linkcard Card=new Linkcard(Usermembership.getCard_Num(),Usermembership.getUser_Id(),cardlink,UserMembership);
 			
 			String Issucess = Card.execute();
 			if (Issucess == "0") {
