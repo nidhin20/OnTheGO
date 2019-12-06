@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,9 @@ public class SubscriptionController {
 	private SubscriptionService Subscriptionservice;
 	@Autowired
 	private CardService Cardservice;
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("Subscrption/Addsubscription")
-	public ResponseEntity<Object> AddSubscription(@RequestBody @Valid Subscriptionview Subsciption ) {
+	public ResponseEntity<Object> AddSubscription(@Valid @RequestBody  Subscriptionview Subsciption ) {
 		try {
 			User Loggedinuser = commonservice.Getloggedinuserdetails();
 			Subscriptionplandto subplandto=new Subscriptionplandto();
@@ -58,7 +59,7 @@ public class SubscriptionController {
 		}
 	}
 	@PostMapping("UserSubscrption/Addsubscription")
-	public ResponseEntity<Object> AddSubscriptiontouser(@RequestBody @Valid Usersubscriptionview Usersubscription ) {
+	public ResponseEntity<Object> AddSubscriptiontouser(@Valid @RequestBody  Usersubscriptionview Usersubscription ) {
 		try {
 			User Loggedinuser = commonservice.Getloggedinuserdetails();
 			Subscriptionplandto subplandto=Subscriptionservice.Getsubscriptionbyplanid(Usersubscription.getPlanid());
@@ -83,7 +84,7 @@ public class SubscriptionController {
 			usersubdto.setCreated_By(Loggedinuser.getId());
 			usersubdto.setCreated_Date(currentdate);
 			
-			Subscriptionservice.CreateSubcriptionPlan(subplandto);
+			Subscriptionservice.AddSubcriptiontouser(usersubdto);
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).build();
 		}catch (Exception ex) {
 

@@ -42,7 +42,7 @@ public class SubscriptionService {
 		NotificationService ns=new NotificationService();
 		useremail_list=subrepo.findUsersbyEmail();
 		Iterator<String>itr=useremail_list.iterator();
-		cs.setMessage("New subscription plan has been added with %f"+Subscriptionplan.getDiscount_rate()+ " % discount");
+		cs.setMessage("New subscription plan has been added with "+Subscriptionplan.getDiscount_rate()+ " % discount");
 		
 		while(itr.hasNext())
 		{
@@ -53,7 +53,7 @@ public class SubscriptionService {
 		ns.addSubscriptionlist(cs);
 		
 	}
-	public void AddSubcriptiontouser(Subscriptionplandto subplandto) {
+	public void AddSubcriptiontouser(Usersubscriptiondto subplandto) {
 		UserSubscription usersubplandmodel= new UserSubscription();
 		BeanUtils.copyProperties(subplandto, usersubplandmodel);
 		Usersubrepo.save(usersubplandmodel);

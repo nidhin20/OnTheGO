@@ -10,8 +10,8 @@ public class commandswitch {
 	{
 		command_card=Link;
 	}
-	public void commandswitchservice() {
-		command_card.execute();
+	public String commandswitchservice() {
+		return command_card.execute();
 	}
 
 }

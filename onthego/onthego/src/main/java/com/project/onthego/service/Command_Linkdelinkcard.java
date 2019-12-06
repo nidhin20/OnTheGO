@@ -8,17 +8,21 @@ import com.project.onthego.repository.UserMembershipRepository;
 public class Command_Linkdelinkcard {
 	@Autowired
 	private CardService cardservice;
-	private Command command_link;
+	@Autowired
+	private commandswitch command_switch;
+	
 	@Autowired
 	private UserMembershipRepository UserMembership;
 	public String Linkcard(String cardnum,int userid) {
 		CardLinkservice cardlink=new CardLinkservice(cardservice,UserMembership);
-		command_link=new Linkcard(cardnum,userid,cardlink,UserMembership);
-		return command_link.execute();
+		Command card=new Linkcard(cardnum,userid,cardlink,UserMembership);
+		command_switch.setcommandswitch(card);
+		return command_switch.commandswitchservice();
 	}
 	public String DeLinkcard(String cardnum,int userid) {
 		CardLinkservice cardlink=new CardLinkservice(cardservice,UserMembership);
-		command_link=new Delinkcard(cardnum,userid,cardlink,UserMembership);
-		return command_link.execute();
+		Command card=new Delinkcard(cardnum,userid,cardlink,UserMembership);
+		command_switch.setcommandswitch(card);
+		return command_switch.commandswitchservice();
 	}
 }
