@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.project.onthego.DTO.UserMembershipDTO;
+import com.project.onthego.model.User;
 import com.project.onthego.model.UserMembership;
 import com.project.onthego.repository.UserMembershipRepository;
 import com.project.onthego.service.CardService;
+import com.project.onthego.service.Command_Linkdelinkcard;
+import com.project.onthego.service.CommonService;
+import com.project.onthego.service.Delinkcard;
 import com.project.onthego.service.UserService;
 import com.project.onthego.validator.DataConstants;
 import com.project.onthego.view.UserMembershipview;
@@ -35,16 +39,18 @@ public class CardController {
 	@Autowired
 	private CardService cardservice;
 	@Autowired
+	private CommonService commonservice;
+	@Autowired
 	private UserMembershipRepository UserMembership;
+	@Autowired
+	private Command_Linkdelinkcard Commandlink;
 
 	@PostMapping("/Linkcard")
 	public ResponseEntity<Object> Linkcard(@RequestBody UserMembershipview Usermembership) {
 		try {
-			//String Issucess = cardservice.Linkcardtouser(Usermembership.getCard_Num(), Usermembership.getUser_Id());
-			CardLinkservice cardlink=new CardLinkservice(cardservice,UserMembership);
-			Linkcard Card=new Linkcard(Usermembership.getCard_Num(),Usermembership.getUser_Id(),cardlink,UserMembership);
-			
-			String Issucess = Card.execute();
+			//CardLinkservice cardlink=new CardLinkservice(cardservice,UserMembership);
+			User Loggedinuser=commonservice.Getloggedinuserdetails();
+			String Issucess=Commandlink.Linkcard(Usermembership.getCard_Num(), Loggedinuser.getId());
 			if (Issucess == "0") {
 				return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).build();
 				
@@ -62,11 +68,10 @@ public class CardController {
 	@PostMapping("/DeLinkcard/{Cardid}")
 	public ResponseEntity<Object> DeLinkcard(@PathVariable String Cardid) {
 		try {
-			//String Issucess = cardservice.Linkcardtouser(Usermembership.getCard_Num(), Usermembership.getUser_Id());
-			//Loggedinuser
-			//Linkcard Card=new Linkcard(Cardid,Usermembership.getUser_Id(),CardLinkservice,UserMembership);
+			User Loggedinuser=commonservice.Getloggedinuserdetails();
+			String Issucess=Commandlink.DeLinkcard(Cardid, Loggedinuser.getId());
 			
-			String Issucess = "0";
+			
 			if (Issucess == "0") {
 				return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).build();
 				

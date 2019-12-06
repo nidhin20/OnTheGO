@@ -49,16 +49,13 @@ public class CardLinkservice {
 			return "102";
 
 		} else {
-			UserMembership Cardmembership = Cardservice.getusermembershipbycard(carddetails.getCard_Id());
-			if (Cardmembership != null) {
-				return "103";
-			} else {
+			
 				UserMembership usermember=UserMembershipRepo.findUserMembershipBycardid(carddetails.getCard_Id());
 				if(usermember.getUser_Id() != userid) {
 					return "104";
 				}
 				UserMembershipRepo.delete(usermember);
-			}
+			
 		}
 		return "0";
 		}
