@@ -1,11 +1,7 @@
 package com.project.onthego.view;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 public class Usersubscriptionview {
-	@NotNull
-	@NotEmpty
 private int planid;
 private String cardnumber;
 
@@ -14,6 +10,8 @@ public int getPlanid() {
 }
 
 public void setPlanid(int planid) {
+	if (planid <=0 )
+		throw new IllegalArgumentException("Plan id can not be 0");
 	this.planid = planid;
 }
 

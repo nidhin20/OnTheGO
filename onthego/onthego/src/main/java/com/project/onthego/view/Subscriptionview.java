@@ -4,7 +4,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class Subscriptionview {
-	@NotNull
+
 	private int Plan_Id;
 	@NotEmpty
 	private String Plan_Nm;
@@ -20,8 +20,6 @@ public class Subscriptionview {
 		return Plan_Id;
 	}
 	public void setPlan_Id(int plan_Id) {
-		if (plan_Id !=0 )
-			new IllegalArgumentException("Plan id can not be empty");
 		Plan_Id = plan_Id;
 	}
 	public String getPlan_Nm() {
@@ -29,15 +27,15 @@ public class Subscriptionview {
 	}
 	public void setPlan_Nm(String plan_Nm) {
 		if (plan_Nm.isEmpty())
-			new IllegalArgumentException("Plan name can not be empty");
+			throw new IllegalArgumentException("Plan name can not be empty");
 		Plan_Nm = plan_Nm;
 	}
 	public String getCard_Category() {
 		return Card_Category;
 	}
 	public void setCard_Category(String card_Category) {
-		if (!(card_Category =="STU" || card_Category == "GEN" ))
-			new IllegalArgumentException("card category should be STU or GEN");
+		if (!(card_Category.equals("STU") || card_Category.equals("GEN") ))
+			throw new IllegalArgumentException("card category should be STU or GEN");
 		Card_Category = card_Category;
 	}
 	public boolean isDefault_plan() {
@@ -57,7 +55,7 @@ public class Subscriptionview {
 	}
 	public void setDiscount_rate(float discount_rate) {
 		if (discount_rate <=0)
-			new IllegalArgumentException("Discounted rate should not be less than 0");
+			throw new IllegalArgumentException("Discounted rate should not be less than 0");
 		Discount_rate = discount_rate;
 	}
 
