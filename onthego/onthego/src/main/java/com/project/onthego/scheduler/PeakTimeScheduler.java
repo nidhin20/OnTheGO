@@ -28,7 +28,7 @@ public class PeakTimeScheduler {
 	
 	
 	
-	@Scheduled(cron = "0 05 0 * * ?")
+	@Scheduled(cron = "0 05 00 * * ?")
 	public void schedulerjob()
 	
 	{
