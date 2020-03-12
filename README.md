@@ -1,2 +1,2 @@
 # OnTheGO
-Jenkins integrated
+Jenkins pipe line integrated
