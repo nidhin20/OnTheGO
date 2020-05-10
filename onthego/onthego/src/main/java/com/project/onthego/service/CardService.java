@@ -1,7 +1,12 @@
 package com.project.onthego.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +38,15 @@ public class CardService {
 	private BusRoutesRepository BusRouteRepo;
 	@Autowired
 	private BusService busService;
+	@Autowired
+	private StudentFactory student;
+	@Autowired
+	private GeneralFactory general;
+
 	public Carddto GetCarddetailsbycardID(String cardNum) {
-		Carddto carddto=new Carddto();
-		
-		Card card= cardrepo.findBycardNumber(cardNum);
+		Carddto carddto = new Carddto();
+
+		Card card = cardrepo.findBycardNumber(cardNum);
 		Assert.notNull(card, "There is no card");
 		BeanUtils.copyProperties(card, carddto);
 		return carddto;
@@ -46,28 +56,34 @@ public class CardService {
 	public Cardmember Getcardmembership(Carddto card) {
 		switch (card.getCard_Category()) {
 		case "STU":
-			return new Studentcard(card);
+			return student.calculateDiscount(card);
 		default:
-			return new Generalcard(card);
+			return general.calculateDiscount(card);
 		}
 
 	}
 
-	public String IsCardcheckedin(Card card,int Busserviceid,int Endstopid) {
+	public GenReport Getcardmembershipstatus(Carddto card) {
+		switch (card.getCard_Category()) {
+		case "STU":
+			return student.generateReport();
+		default:
+			return general.generateReport();
+		}
 
-	 CardHistory cardhis=cardHistoryrepo.findBycardHistorybycardNumber(card.getCard_Id());
-	 if(cardhis.getCheck_Out() == null)
-	 {
-		 if(cardhis.getBus_Servce_Id() == Busserviceid )
-		 {
-			 
-		 }
-	 }
-	 
-		return "0";
 	}
 
-	
+	public String IsCardcheckedin(Card card, int Busserviceid, int Endstopid) {
+
+		CardHistory cardhis = cardHistoryrepo.findBycardHistorybycardNumber(card.getCard_Id());
+		if (cardhis.getCheck_Out() == null) {
+			if (cardhis.getBus_Servce_Id() == Busserviceid) {
+
+			}
+		}
+
+		return "0";
+	}
 
 	public UserMembership getusermembershipbycard(int Cardid) {
 
@@ -87,34 +103,36 @@ public class CardService {
 	}
 
 	public CardHistorydto GetCardHistorybycardID(int Cardid) {
-		CardHistory CardHistmodel= cardHistoryrepo.findBycardHistorybycardNumber(Cardid);
-		CardHistorydto cardhistdto=new CardHistorydto();
+		CardHistory CardHistmodel = cardHistoryrepo.findBycardHistorybycardNumber(Cardid);
+		CardHistorydto cardhistdto = new CardHistorydto();
 		BeanUtils.copyProperties(CardHistmodel, cardhistdto);
-		//cardhistdto.setCard_History_Id(card_History_Id);
-		return  cardhistdto;
+		// cardhistdto.setCard_History_Id(card_History_Id);
+		return cardhistdto;
 
 	}
-	public void Reduceamountfromcard(float amount,Carddto carddto) {
-		carddto.setBalance(carddto.getBalance()-amount);
-		Card card=new Card();
+
+	public void Reduceamountfromcard(float amount, Carddto carddto) {
+		carddto.setBalance(carddto.getBalance() - amount);
+		Card card = new Card();
 		BeanUtils.copyProperties(carddto, card);
 		cardrepo.save(card);
 	}
 
 	public float Getdistancebetweenstops(int Startstopid, int EndStopid, int Serviceid) {
-		BusServicesdto busservicedto=busService.Getbusservice(Serviceid);
-		Assert.notNull(busservicedto,"Bus service does not exist");
-		int Routeid=busservicedto.getBus_Route_Id() ;
+		BusServicesdto busservicedto = busService.Getbusservice(Serviceid);
+		Assert.notNull(busservicedto, "Bus service does not exist");
+		int Routeid = busservicedto.getBus_Route_Id();
 		BusRoutes Startbusstop = BusRouteRepo.Getbusroutestopinfobystopid(Routeid, Startstopid);
 		BusRoutes Endbusstop = BusRouteRepo.Getbusroutestopinfobystopid(Routeid, EndStopid);
 		float distance = (float) (Endbusstop.getDistnce_to_Destn() - Startbusstop.getDistnce_to_Destn());
 		return distance;
 
 	}
-	public void checkintobus(Carddto card,int stopid,User Loggedinuser,int Serviceid) {
+
+	public void checkintobus(Carddto card, int stopid, User Loggedinuser, int Serviceid) {
 		Date CurrentDate = new Date();
-		SimpleDateFormat dateformat= new SimpleDateFormat("EEEE");
-		String day= dateformat.format(CurrentDate) ;
+		SimpleDateFormat dateformat = new SimpleDateFormat("EEEE");
+		String day = dateformat.format(CurrentDate);
 		CardHistorydto cardhistdto = new CardHistorydto();
 		cardhistdto.setCard_Id(card.getCard_Id());
 		cardhistdto.setAmount(0);
@@ -129,7 +147,28 @@ public class CardService {
 		cardhistdto.setDay_Of_Week(day);
 		CreateCardHistory(cardhistdto);
 	}
-	public void checkoutfrombus(Carddto card,int stopid,User Loggedinuser,int Serviceid) {
+
+	public void checkoutfrombus(Carddto card, int stopid, User Loggedinuser, int Serviceid) {
+		
+		GenReport report = Getcardmembershipstatus(card);
+		List<TravelHistoryInterface> carddetails = cardHistoryrepo.getcarddetails(card.getCard_Id());
+
+		ByteArrayInputStream bis = report.generateReport(carddetails);
+
+		int d;
+		try {
+			OutputStream out = new FileOutputStream("D:/Studies/Software Architecture/out.pdf");
+			while ((d = bis.read()) != -1) {
+
+				out.write((char)d);
+			}
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		Cardmember Cardmember = Getcardmembership(card);
 		Date CurrentDate = new Date();
 		CardHistorydto cardhistdto = GetCardHistorybycardID(card.getCard_Id());
@@ -146,6 +185,6 @@ public class CardService {
 		card.setUpdated_By(Loggedinuser.getId());
 		card.setUpdated_Date(CurrentDate);
 		Reduceamountfromcard(totalfare, card);
-		
+
 	}
 }
