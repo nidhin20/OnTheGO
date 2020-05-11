@@ -3,9 +3,7 @@ package com.project.onthego.service;
 import java.util.Date;
 
 public class TravelHistory implements TravelHistoryInterface {
-//	Journey Date", "Bus Route", "Bus Start Time","Start Stop","End Stop","Amount","Debit
-	
-	//c.Created_Date,bs.Bus_Route_Id,bs.Bus_Start_Time, bi.Bus_Stop_Nm as 'Startstop', bo.Bus_Stop_Nm as 'Endstop', c.Amount,c.Is_Debit 
+ 
 	private Date Created_Date;
 	private int Bus_Route_Id;
 	private Date Bus_Start_Time;
