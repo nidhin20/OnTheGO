@@ -9,6 +9,15 @@ public class Usersubscriptiondto {
 	private float Discount;
 	private Date Subs_Start_Dt;
 	private Date Subs_End_Dt;
+	private String Paymentref;
+
+	public String getPaymentref() {
+		return Paymentref;
+	}
+
+	public void setPaymentref(String paymentref) {
+		Paymentref = paymentref;
+	}
 
 	public int getSubid() {
 		return Subid;

@@ -23,11 +23,7 @@ public class UserController {
 	UserService userService ;
 	
 	UserDto userDto;
-	/*@GetMapping("/all")
-	public List<User> Userlogin() {
-	List<User> l1=user_service.getAll();
-	return l1;
-	}*/
+
 	@RequestMapping(path="/signup", method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody @Valid UserSignUpDto userSignUpDto) {
 		 UserDto userDto = userService.addUser(userSignUpDto);
