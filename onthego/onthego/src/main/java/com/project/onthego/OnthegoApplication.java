@@ -1,18 +1,18 @@
 package com.project.onthego;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 @EnableScheduling
+@ServletComponentScan
 @SpringBootApplication
-//@RestController
-//@EnableJpaRepositories(basePackages="com.project.onthego.repository")
 public class OnthegoApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(OnthegoApplication.class, args);
 	}

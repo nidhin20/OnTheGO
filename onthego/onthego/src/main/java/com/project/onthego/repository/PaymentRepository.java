@@ -11,4 +11,7 @@ public interface PaymentRepository extends JpaRepository<Payment,Integer> {
 
 	@Query(value="Select p.Paymnt_Reference_Nbr from Payment p ORDER BY p.Paymnt_Reference_Nbr DESC LIMIT 1",nativeQuery=true)
 	String findbyrefid();
+	
+	@Query(value="Select * from Payment where Paymnt_Reference_Nbr=?1",nativeQuery=true)
+	Payment findpaymentbyrefid(String refno);
 }

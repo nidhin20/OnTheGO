@@ -5,21 +5,21 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 @Component
-public final class DataConstants {
+public  class DataConstants {
 	
-	public static String Applicationcommonerror = "An Error have been encountered";
+	public static final String APPLICATIONCOMMONERROR = "An Error have been encountered";
 		
 	
-	 public static Map<String, String> CardErrors = new HashMap<String, String>(){
-	{
-		put("100","Insufficient Balance");
-		put("101","Inactive Card");
-		put("102","Invalid Card");
-		put("103","Card already mapped to a user");
-		put("104","You can not remove other users card");
-		
-	}};
+	 public static final Map<String, String> CardErrors = new HashMap<>();
 	  public  Map<String, String> getCardErrormap() {
 	         return CardErrors;
 	    }
+	  
+	  public DataConstants() {
+		  CardErrors.put("100","Insufficient Balance");
+		  CardErrors.put("101","Inactive Card");
+		  CardErrors.put("102","Invalid Card");
+		  CardErrors.put("103","Card already mapped to a user");
+		  CardErrors.put("104","You can not remove other users card");
+	  }
 }

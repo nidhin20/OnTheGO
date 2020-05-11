@@ -11,7 +11,7 @@ public class UserSignInDto  {
 		return email;
 	}
 	public void setEmail(String email) {
-		 if (email == "" || email.isEmpty())
+		 if (email.isBlank() || email.isEmpty())
 			 throw new IllegalArgumentException("Email can not be empty");
 		this.email = email;
 	}
@@ -19,7 +19,7 @@ public class UserSignInDto  {
 		return password;
 	}
 	public void setPassword(String password) {
-		 if (password == ""|| password.isEmpty())
+		 if (password.isBlank() || password.isEmpty())
 			 throw new IllegalArgumentException("Password can not be empty");
 		this.password = password;
 	}

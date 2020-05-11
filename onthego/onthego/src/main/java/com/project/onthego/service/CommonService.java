@@ -16,7 +16,7 @@ public class CommonService {
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		org.springframework.security.core.userdetails.User jwtUser = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
-		User userdetails=userRepository.GetuserbyEmail(jwtUser.getUsername());
-		return userdetails;
+		return userRepository.GetuserbyEmail(jwtUser.getUsername());
+
 	}
 }
