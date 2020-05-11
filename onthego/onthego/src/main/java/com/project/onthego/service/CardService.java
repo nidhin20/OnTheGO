@@ -42,7 +42,12 @@ public class CardService {
 	private StudentFactory student;
 	@Autowired
 	private GeneralFactory general;
+	
 
+	public int getcurrentusersinbus(int serviceid) {
+		return cardHistoryrepo.getbususersbyserviceid(serviceid);
+	}
+	
 	public Carddto GetCarddetailsbycardID(String cardNum) {
 		Carddto carddto = new Carddto();
 
@@ -53,6 +58,14 @@ public class CardService {
 
 	}
 
+	public Carddto getCarddetailsbycardID(int cardid) {
+		Carddto carddto = new Carddto();
+
+		Card card = cardrepo.findBycardid(cardid);
+		Assert.notNull(card, "There is no card");
+		BeanUtils.copyProperties(card, carddto);
+		return carddto;}
+		
 	public Cardmember Getcardmembership(Carddto card) {
 		switch (card.getCard_Category()) {
 		case "STU":
@@ -175,7 +188,7 @@ public class CardService {
 		int Startstopid = cardhistdto.getCheck_In_BusStop();
 		int Endstopid = stopid;
 		float distancetravelled = Getdistancebetweenstops(Startstopid, Endstopid, Serviceid);
-		float totalfare = Cardmember.getDiscountRate(distancetravelled);
+		float totalfare = Cardmember.getDiscountRate(distancetravelled,Serviceid);
 		cardhistdto.setAmount(totalfare);
 		cardhistdto.setCheck_Out_BusStop(Endstopid);
 		cardhistdto.setCheck_Out(CurrentDate);
