@@ -61,7 +61,7 @@ public class CardController {
 		} catch (Exception ex) {
 
 			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
-					.body(DataConstants.Applicationcommonerror);
+					.body(DataConstants.APPLICATIONCOMMONERROR);
 
 		}
 	}
@@ -82,7 +82,7 @@ public class CardController {
 		} catch (Exception ex) {
 
 			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
-					.body(DataConstants.Applicationcommonerror);
+					.body(DataConstants.APPLICATIONCOMMONERROR);
 
 		}
 	}
@@ -107,7 +107,7 @@ public class CardController {
 			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(usercardsview);
 		} catch (Exception ex) {
 			return ResponseEntity.status(500).contentType(MediaType.APPLICATION_JSON)
-					.body(DataConstants.Applicationcommonerror);
+					.body(DataConstants.APPLICATIONCOMMONERROR);
 		}
 	}
 
