@@ -16,7 +16,7 @@ import com.project.onthego.model.UserSubscription;
  */
 public interface UserSubscriptionRepository extends JpaRepository<UserSubscription, Integer> {
 
-	@Query(nativeQuery = true,value="select top 1 * from UserSubscription u where u.Card_Id=?1 and u.Subs_Start_Dt <= ?2 and ?3 <= u.Subs_End_Dt ")
+	@Query(nativeQuery = true,value="select * from UserSubscription u where u.Card_Id=?1 and u.Subs_Start_Dt <= ?2 and ?3 <= u.Subs_End_Dt LIMIT 1")
 	UserSubscription findsubscriptionbycardid(int Cardid,Date startdate,Date Tilldate);
 	
 }
